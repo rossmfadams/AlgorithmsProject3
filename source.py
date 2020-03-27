@@ -26,7 +26,7 @@ def main():
         ('C','D'),('C','E'),('D','B'),('D','C'),('D','E'),('E','B'),('E','C'),('E','D')])
 
     # DijkstraAlgo
-    D.add_nodes_from("ABCDE")
+    D.add_nodes_from("ABCDEFGHI")
 
     D.add_edges_from([('A', 'B'), ('A', 'C'), ('A', 'D'),
                       ('B', 'H'), ('B', 'F'), ('B', 'C'), ('B', 'A'),
@@ -50,11 +50,19 @@ def main():
                                ('I', 'D', 30), ('I', 'G', 21), ('I', 'H', 19)
                                ])
 
+    print('\n\nDijkstra\'s Algorithm\n')
     pred, dist = nx.dijkstra_predecessor_and_distance(D, 'A')
     print(sorted(pred.items()))
     print(sorted(dist.items()))
     print(nx.dijkstra_path(D, 'A', 'I'))
+    print('\n\nBellman-Ford\'s Algorithm\n')
+    # Bellman-Ford
+    pred, dist = nx.bellman_ford_predecessor_and_distance(D, 'A')
+    print(sorted(pred.items()))
+    print(sorted(dist.items()))
+    print(nx.bellman_ford_path(D, 'A', 'I'))
 
+    print('\n\nTest Graph\n')
     # Print number of nodes
     print(G.number_of_nodes())
 
