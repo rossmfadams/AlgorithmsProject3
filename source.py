@@ -50,9 +50,9 @@ def main():
     B2 = nx.bfs_tree(B2,'H')
 
     print(nx.dfs_successors(B,'A'))
-    print(nx.dfs_successors(B2,''))
+    print(nx.dfs_successors(B2,'H'))
 
-    # DijkstraAlgo
+    # Build Graph from Dijkstra and Kruskal
     D.add_nodes_from("ABCDEFGHI")
 
     D.add_weighted_edges_from([('A', 'B', 22), ('A', 'C', 9), ('A', 'D', 12),
@@ -66,15 +66,20 @@ def main():
                                ('I', 'D', 30), ('I', 'G', 21), ('I', 'H', 19)
                                ])
 
-    print('\n\nDijkstra\'s Algorithm\n')
+    # Dijkstra's Algorithm
+    print('\n\nDijkstra\'s Algorithm')
     pred, dist = nx.dijkstra_predecessor_and_distance(D, 'A')
+    print('\nDijkstra\'s Algorithm Graph')
     print(sorted(pred.items()))
+    print('\nDijkstra\'s Algorithm Distance')
     print(sorted(dist.items()))
+    print('\nDijkstra\'s Algorithm hortest path from source node to target node')
     print(nx.dijkstra_path(D, 'A', 'I'))
 
-    # kruskal Algorithm
-    print('\n\nKruskal\'s Algorithm\n')
-    T = nx.minimum_spanning_tree(D)
+    # kruskal's Algorithm
+    print('\n\nKruskal\'s Algorithm')
+    print('\nMinimum Spanning Tree')
+    T = nx.minimum_spanning_tree(D, algorithm='kruskal')
     print(sorted(T.edges(data=True)))
 
     print('\n\nTest Graph\n')
