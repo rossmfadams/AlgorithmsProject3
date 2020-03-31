@@ -5,6 +5,10 @@
 
 import networkx as nx
 import matplotlib.pyplot as plt
+import bfs
+import bfs_path
+import dfs_path
+import prim
 
 
 # main function
@@ -34,19 +38,35 @@ def main():
     # DFS
     print('\n\nDFS\n')
 
+    # DFS Path from A to G
+    print('\nDFS Path from A to G')
+    print(dfs_path.dfs_path(DFS,'A','G'))
+
+    # DFS trees
     DFS = nx.dfs_tree(DFS,'A')
     DFS2 = nx.dfs_tree(DFS2,'H')
 
+    # DFS Tree Printout
+    print('\nDFS Tree from A')
     print(nx.dfs_successors(DFS,'A'))
+    print('\nDFS Tree from H')
     print(nx.dfs_successors(DFS2,'H'))
 
     # BFS
     print('\n\nBFS\n')
-    
+
+    # BFS Path from A to G
+    print('\nBFS Path from A to G')
+    print(bfs_path.bfs_path(B,'A','G'))
+
+    # BFS trees
     B = nx.bfs_tree(B,'A')
     B2 = nx.bfs_tree(B2,'H')
 
+    # BFS Tree Printout
+    print('\nBFS Tree from A')
     print(nx.dfs_successors(B,'A'))
+    print('\nBFS Tree from H')
     print(nx.dfs_successors(B2,'H'))
 
 
