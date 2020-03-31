@@ -31,7 +31,6 @@ def main():
     B.add_edges_from([('A','B'),('A','F'),('A','E'),('B','C'),('B','F'),('C','D'),('C','G'), \
                        ('D','G'),('E','F'),('E','I'),('F','I'),('G','J'),('H','K'),('H','L'), \
                        ('I','J'),('I','M'),('K','L'),('K','O'),('L','P'),('M','N')])
-
     # DFS
     print('\n\nDFS\n')
 
@@ -48,7 +47,8 @@ def main():
     B2 = nx.bfs_tree(B2,'H')
 
     print(nx.dfs_successors(B,'A'))
-    print(nx.dfs_successors(B2,''))
+    print(nx.dfs_successors(B2,'H'))
+
 
     # Task 3
     Di = nx.DiGraph()
@@ -82,18 +82,9 @@ def main():
     #  Task 4
 
     # DijkstraAlgo
-    D.add_nodes_from("ABCDEFGHI")
 
-    D.add_edges_from([('A', 'B'), ('A', 'C'), ('A', 'D'),
-                      ('B', 'H'), ('B', 'F'), ('B', 'C'), ('B', 'A'),
-                      ('C', 'A'), ('C', 'D'), ('C', 'E'), ('C', 'F'), ('C', 'B'),
-                      ('D', 'A'), ('D', 'C'), ('D', 'E'), ('D', 'I'),
-                      ('E', 'C'), ('E', 'D'), ('E', 'F'), ('E', 'G'),
-                      ('F', 'B'), ('F', 'C'), ('F', 'E'), ('F', 'G'), ('F', 'H'),
-                      ('G', 'E'), ('G', 'F'), ('G', 'H'), ('G', 'I'),
-                      ('H', 'B'), ('H', 'F'), ('H', 'G'), ('H', 'I'),
-                      ('I', 'D'), ('I', 'G'), ('I', 'H')
-                      ])
+    # Build Graph from Dijkstra and Kruskal
+    D.add_nodes_from("ABCDEFGHI")
 
     D.add_weighted_edges_from([('A', 'B', 22), ('A', 'C', 9), ('A', 'D', 12),
                                ('B', 'H', 34), ('B', 'F', 36), ('B', 'C', 35), ('B', 'A', 22),
@@ -106,17 +97,21 @@ def main():
                                ('I', 'D', 30), ('I', 'G', 21), ('I', 'H', 19)
                                ])
 
-    print('\n\nDijkstra\'s Algorithm\n')
+    # Dijkstra's Algorithm
+    print('\n\nDijkstra\'s Algorithm')
     pred, dist = nx.dijkstra_predecessor_and_distance(D, 'A')
+    print('\nDijkstra\'s Algorithm Graph')
     print(sorted(pred.items()))
+    print('\nDijkstra\'s Algorithm Distance')
     print(sorted(dist.items()))
+    print('\nDijkstra\'s Algorithm hortest path from source node to target node')
     print(nx.dijkstra_path(D, 'A', 'I'))
-    print('\n\nBellman-Ford\'s Algorithm\n')
-    # Bellman-Ford
-    pred, dist = nx.bellman_ford_predecessor_and_distance(D, 'A')
-    print(sorted(pred.items()))
-    print(sorted(dist.items()))
-    print(nx.bellman_ford_path(D, 'A', 'I'))
+
+    # kruskal's Algorithm
+    print('\n\nKruskal\'s Algorithm')
+    print('\nMinimum Spanning Tree')
+    T = nx.minimum_spanning_tree(D, algorithm='kruskal')
+    print(sorted(T.edges(data=True)))
 
 if __name__ == "__main__":
     main()
