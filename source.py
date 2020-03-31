@@ -5,15 +5,13 @@
 
 import networkx as nx
 import matplotlib.pyplot as plt
-import bfs
-import bfs_path
-import prim
 
 
 # main function
 
 
 def main():
+    # Tasks 1 and 2
     # Create a graph
     B = nx.Graph()
     G = nx.Graph()
@@ -52,6 +50,37 @@ def main():
     print(nx.dfs_successors(B,'A'))
     print(nx.dfs_successors(B2,''))
 
+    # Task 3
+    Di = nx.DiGraph()
+
+    Di.add_nodes_from(range(1,12))
+
+    Di.add_edges_from([(1,2),(2,1),(3,2),(3,5),(4,1),(4,2),(4,12),(5,6),(5,8),
+                       (6,8),(6,7),(6,10),(7,10),(8,9),(8,10),(9,5),(9,11),
+                       (10,9),(10,11),(11,12)])
+
+    # Counting the number of SCC in the Digraph
+    print("Number of Strongly Connected Components: ")
+    print(nx.number_strongly_connected_components(Di))
+
+    # Display SCC
+    print("Strongly Connect Components: ")
+    [len(c) for c in sorted(nx.strongly_connected_components(Di), key=len, reverse=True)]
+
+    # Find the DAG of a graph
+    A = nx.DiGraph()
+    A = nx.condensation(Di)
+    nx.draw_shell(A, with_labels=True, font_weight='bold' )
+
+    # Verify that new 'meta graph' is a DAG
+    print("Digraph is now a DAG: ")
+    print(nx.is_directed_acyclic_graph(A))
+
+    print("Topological Order: ")
+    list(reversed(list(nx.topological_sort(A))))
+
+    #  Task 4
+
     # DijkstraAlgo
     D.add_nodes_from("ABCDEFGHI")
 
@@ -88,27 +117,6 @@ def main():
     print(sorted(pred.items()))
     print(sorted(dist.items()))
     print(nx.bellman_ford_path(D, 'A', 'I'))
-
-    print('\n\nTest Graph\n')
-    # Print number of nodes
-    print(G.number_of_nodes())
-
-    # Print number of edges
-    print(G.number_of_edges())
-
-    # List nodes in graph
-    print(list(G.nodes))
-
-    # List edges in graph
-    print(list(G.edges))
-
-    # Draw graph
-    plt.subplot(121)
-    nx.draw(D, with_labels=True, font_weight='bold')
-    plt.show()
-
-
-
 
 if __name__ == "__main__":
     main()
