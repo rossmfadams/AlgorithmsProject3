@@ -15,15 +15,42 @@ import prim
 
 def main():
     # Create a graph
+    B = nx.Graph()
     G = nx.Graph()
     D = nx.Graph()
 
     # Add nodes from a list
     G.add_nodes_from("ABCDE")
+    B.add_nodes_from("ABCDEFGHIJKLMNOP")
+    B2 = B
+    DFS = B
+    DFS2 = B
 
     # Add edges from a list
     G.add_edges_from([('A','B'),('A','C'),('B','C'),('B','D'),('B','E'),('C','B'),\
         ('C','D'),('C','E'),('D','B'),('D','C'),('D','E'),('E','B'),('E','C'),('E','D')])
+    
+    B.add_edges_from([('A','B'),('A','F'),('A','E'),('B','C'),('B','F'),('C','D'),('C','G'), \
+                       ('D','G'),('E','F'),('E','I'),('F','I'),('G','J'),('H','K'),('H','L'), \
+                       ('I','J'),('I','M'),('K','L'),('K','O'),('L','P'),('M','N')])
+
+    # DFS
+    print('\n\nDFS\n')
+
+    DFS = nx.dfs_tree(DFS,'A')
+    DFS2 = nx.dfs_tree(DFS2,'H')
+
+    print(nx.dfs_successors(DFS,'A'))
+    print(nx.dfs_successors(DFS2,'H'))
+
+    # BFS
+    print('\n\nBFS\n')
+    
+    B = nx.bfs_tree(B,'A')
+    B2 = nx.bfs_tree(B2,'H')
+
+    print(nx.dfs_successors(B,'A'))
+    print(nx.dfs_successors(B2,''))
 
     # DijkstraAlgo
     D.add_nodes_from("ABCDEFGHI")
@@ -77,8 +104,10 @@ def main():
 
     # Draw graph
     plt.subplot(121)
-    nx.draw(D, with_labels=True, font_weight='bold')
+    nx.draw(DFS2, with_labels=True, font_weight='bold')
     plt.show()
+
+
 
 
 if __name__ == "__main__":
