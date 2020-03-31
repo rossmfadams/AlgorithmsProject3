@@ -104,7 +104,7 @@ def main():
 
     # Draw graph
     plt.subplot(121)
-    nx.draw(DFS2, with_labels=True, font_weight='bold')
+    nx.draw(D, with_labels=True, font_weight='bold')
     plt.show()
 
 
