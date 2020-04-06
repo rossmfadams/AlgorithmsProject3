@@ -43,6 +43,11 @@ def main():
     # DFS trees
     DFS = nx.dfs_tree(DFS,'A')
     DFS2 = nx.dfs_tree(DFS2,'H')
+    plt.subplot(121)
+    nx.draw_planar(DFS, with_labels=True, font_weights='bold')
+    plt.subplot(122)
+    nx.draw_planar(DFS2, with_labels=True, font_weights='bold')
+    plt.show()
 
     # DFS Tree Printout
     print('\nDFS Tree from A')
@@ -60,6 +65,11 @@ def main():
     # BFS trees
     B = nx.bfs_tree(B,'A')
     B2 = nx.bfs_tree(B2,'H')
+    plt.subplot(121)
+    nx.draw_planar(B, with_labels=True, font_weights='bold')
+    plt.subplot(122)
+    nx.draw_planar(B2, with_labels=True, font_weights='bold')
+    plt.show()
 
     # BFS Tree Printout
     print('\nBFS Tree from A')
@@ -69,33 +79,47 @@ def main():
 
 
     # Task 3
+    print('\nDiGraph\n')
     Di = nx.DiGraph()
 
-    Di.add_nodes_from(range(1,12))
+    Di.add_nodes_from(range(1,13))
 
-    Di.add_edges_from([(1,2),(2,1),(3,2),(3,5),(4,1),(4,2),(4,12),(5,6),(5,8),
+    Di.add_edges_from([(1,3),(2,1),(3,2),(3,5),(4,1),(4,2),(4,12),(5,6),(5,8),
                        (6,8),(6,7),(6,10),(7,10),(8,9),(8,10),(9,5),(9,11),
                        (10,9),(10,11),(11,12)])
 
+    #pos = nx.planar_layout(Di)
+    nx.draw_spring(Di, arrows=True,with_labels=True, font_weight='bold')
+    plt.show()
     # Counting the number of SCC in the Digraph
-    print("Number of Strongly Connected Components: ")
+    print("\nNumber of Strongly Connected Components: ")
     print(nx.number_strongly_connected_components(Di))
 
     # Display SCC
-    print("Strongly Connect Components: ")
-    [len(c) for c in sorted(nx.strongly_connected_components(Di), key=len, reverse=True)]
+    print("\nStrongly Connect Components: ")
+    comp = nx.strongly_connected_components(Di)
+    for c in comp:
+        print(c,'\n')
 
     # Find the DAG of a graph
     A = nx.DiGraph()
     A = nx.condensation(Di)
-    nx.draw_shell(A, with_labels=True, font_weight='bold' )
+    
+    # Display resulting DAG
+    print('\nDAG: ')
+    print(A.nodes(data=True))
+    
+    nx.draw_spring(A, with_labels=True, font_weight='bold' )
+    plt.show()
+    
 
     # Verify that new 'meta graph' is a DAG
-    print("Digraph is now a DAG: ")
+    print("\nDigraph is now a DAG: ")
     print(nx.is_directed_acyclic_graph(A))
 
-    print("Topological Order: ")
-    list(reversed(list(nx.topological_sort(A))))
+    # Topological sort of DAG nodes
+    print("\nTopological Order: ")
+    print(list(list(nx.topological_sort(A))))
 
     #  Task 4
 
@@ -122,13 +146,16 @@ def main():
     print(sorted(pred.items()))
     print('\nDijkstra\'s Algorithm Distance')
     print(sorted(dist.items()))
-    print('\nDijkstra\'s Algorithm hortest path from source node to target node')
+    print('\nDijkstra\'s Algorithm shortest path from source node to target node')
     print(nx.dijkstra_path(D, 'A', 'I'))
+
 
     # kruskal's Algorithm
     print('\n\nKruskal\'s Algorithm')
     print('\nMinimum Spanning Tree')
     T = nx.minimum_spanning_tree(D, algorithm='kruskal')
+    nx.draw_spring(T, with_labels=True, font_weights='bold')
+    plt.show()
     print(sorted(T.edges(data=True)))
 
 if __name__ == "__main__":
