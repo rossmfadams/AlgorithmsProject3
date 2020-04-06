@@ -5,10 +5,8 @@
 
 import networkx as nx
 import matplotlib.pyplot as plt
-import bfs
 import bfs_path
 import dfs_path
-import prim
 
 
 # main function
